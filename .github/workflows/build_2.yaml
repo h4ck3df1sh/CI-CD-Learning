@@ -14,3 +14,16 @@ jobs:
         uses: CycloneDX/gh-node-module-generatebom@v1
         with: 
           output: './test.app.bom.xml'
+      - name: Upload SBOM artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: sbom
+          path: './test.app.bom.xml'
+      - name: Download SBOM artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: sbom
+          path: './'
+      - name: Display contents of SBOM artifact
+        run: |
+          cat ./test.app.bom.xml
